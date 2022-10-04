@@ -1,0 +1,17 @@
+parameterized cursor
+DECLARE
+  CURSOR trader_cursor
+  (p_traderno NUMBER) IS
+     SELECT name,tradinglimit
+     FROM   trader
+     WHERE  traderid = p_traderno;
+    
+BEGIN
+  FOR trader_record IN trader_cursor(2) LOOP
+         -- implicit open and implicit fetch occur
+   DBMS_OUTPUT.PUT_LINE (trader_record.name||''||trader_record.tradinglimit);
+    
+  END LOOP; -- implicit close occurs
+ 
+END;
+/
