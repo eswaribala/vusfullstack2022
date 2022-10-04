@@ -1,0 +1,12 @@
+DECLARE
+  CURSOR emp_cursor IS
+    SELECT last_name, department_id
+    FROM   employees;
+BEGIN
+  FOR emp_record IN emp_cursor LOOP
+         -- implicit open and implicit fetch occur
+    IF emp_record.department_id = 80 THEN
+      ...
+  END LOOP; -- implicit close occurs
+END;
+/
