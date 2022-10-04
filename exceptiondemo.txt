@@ -1,0 +1,13 @@
+DEFINE p_deptno = 10
+DECLARE
+  e_emps_remaining EXCEPTION;
+  PRAGMA EXCEPTION_INIT     (e_emps_remaining, -2292);
+BEGIN
+  DELETE FROM departments
+  WHERE  department_id = &p_deptno;
+  COMMIT;
+EXCEPTION
+  WHEN e_emps_remaining   THEN
+   DBMS_OUTPUT.PUT_LINE ('Cannot remove dept ' ||
+   TO_CHAR(&p_deptno) || '.  Employees exist. ');
+END;
