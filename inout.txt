@@ -1,0 +1,15 @@
+CREATE OR REPLACE PROCEDURE query_trader
+  (p_data IN OUT NUMBER)
+IS
+BEGIN
+  select tradinglimit into p_data from trader where traderid=p_data; 
+END query_trader;
+/
+===========================================================
+declare 
+v_data Number :=1075;
+begin
+query_trader(v_data);
+ DBMS_OUTPUT.PUT_LINE('Trading Limit='||v_data);
+end;
+/
