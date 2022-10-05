@@ -1,0 +1,27 @@
+================================================================
+create or replace PROCEDURE new_trader_proc
+  (p_traderid  IN trader.traderid%TYPE
+                   DEFAULT 57,  
+   p_tradername   IN trader.name%TYPE,
+   p_tradinglimit IN trader.tradinglimit%TYPE DEFAULT 25000,
+   p_bankid   IN trader.bankid%TYPE DEFAULT 1, 
+   p_email IN trader.email%TYPE,
+   p_location IN trader.location%TYPE  
+    )
+IS
+BEGIN
+  INSERT INTO trader(traderid,
+            name, tradinglimit,bankid,email,location)
+  VALUES ((p_traderid + 100), p_tradername, p_tradinglimit,p_bankid, p_email,p_location);  
+  
+
+END new_trader_proc;
+------------------------------------------------------------------------
+
+begin
+
+new_trader_proc(p_traderid =>975, p_tradername=>'Jaya', p_tradinglimit=>35000,p_bankid=>104,p_email=>'jaya@veb.com',p_location=>'chennai');
+
+end;
+/
+===========================================================================
