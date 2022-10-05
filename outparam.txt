@@ -1,0 +1,25 @@
+CREATE OR REPLACE PROCEDURE query_emp
+  (p_id      IN   emp.empno%TYPE,
+   p_name    OUT  emp.empname%TYPE,
+   p_salary  OUT  emp.salary%TYPE,
+   p_deptno    OUT  emp.deptno%TYPE)
+IS
+BEGIN
+  SELECT   empname, salary, deptno
+   INTO    p_name, p_salary, p_deptno
+   FROM    emp
+   WHERE   empno = p_id;
+END query_emp;
+/
+==================================================
+procedure execution
+
+declare 
+v_empname emp.empname%TYPE;
+v_salary emp.salary%TYPE;
+v_deptno emp.deptno%TYPE;
+begin
+query_emp(11,v_empname,v_salary,v_deptno);
+ DBMS_OUTPUT.PUT_LINE('Employee Name'||v_empname||'getting Salary as'||v_salary||'from department'||v_deptno);
+end;
+/
