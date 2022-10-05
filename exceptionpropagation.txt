@@ -1,0 +1,44 @@
+DECLARE
+  v_bankname bank.bankname%TYPE;
+  
+  v_traderid trader.traderid%TYPE;
+  v_tradername trader.name%TYPE;
+  
+  p_bankid bank.bankid%TYPE :=-100; 
+  e_no_rows   exception;
+  e_cursorexception exception;
+  
+  CURSOR trader_cursor IS
+        SELECT traderid, name
+        FROM   trader;
+BEGIN
+ 
+    BEGIN
+     
+     SELECT bankname into v_bankname from bank where bankid= p_bankid;    
+    
+
+      OPEN trader_cursor;
+      LOOP
+        IF trader_cursor%NOTFOUND THEN
+            RAISE e_cursorexception;
+        Else
+         FETCH trader_cursor INTO v_traderid, v_tradername;
+         
+                                  
+         DBMS_OUTPUT.PUT_LINE (TO_CHAR(v_traderid) || v_tradername);
+      END IF;                      
+      END LOOP;
+      CLOSE trader_cursor; 
+     END;  
+
+EXCEPTION
+  WHEN e_cursorexception THEN 
+    DBMS_OUTPUT.PUT_LINE('No cursor found');
+  WHEN NO_DATA_FOUND THEN
+       
+       RAISE_APPLICATION_ERROR (-20201,
+         'Bank id is not valid');
+
+END;
+/
